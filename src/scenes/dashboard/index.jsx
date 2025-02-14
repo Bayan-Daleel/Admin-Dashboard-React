@@ -29,8 +29,11 @@ const Dashboard = () => {
               backgroundColor: colors.blueAccent[700],
               color: colors.grey[100],
               fontSize: "14px",
+              margin:"5px",
               fontWeight: "bold",
-              padding: "10px 20px",
+              padding: "10px 10px",
+              width: "100%", // Full width on mobile
+              maxWidth: { xs: "100%", sm: "50%" },
             }}
           >
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
@@ -42,13 +45,13 @@ const Dashboard = () => {
       {/* GRID & CHARTS */}
       <Box
         display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
+        gridTemplateColumns={{ xs: "1fr", sm: "repeat(12, 1fr)" }}
         gridAutoRows="140px"
         gap="20px"
       >
         {/* ROW 1 */}
         <Box
-          gridColumn="span 3"
+          gridColumn={{ xs: "span 12", sm: "span 6", md: "span 3" }}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -67,7 +70,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn={{ xs: "span 12", sm: "span 6", md: "span 3" }}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -86,7 +89,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn={{ xs: "span 12", sm: "span 6", md: "span 3" }}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -105,7 +108,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn={{ xs: "span 12", sm: "span 6", md: "span 3" }}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -126,7 +129,7 @@ const Dashboard = () => {
 
         {/* ROW 2 */}
         <Box
-          gridColumn="span 8"
+          gridColumn={{ xs: "span 12", sm: "span 6", md: "span 3" }}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
@@ -166,7 +169,7 @@ const Dashboard = () => {
           </Box>
         </Box>
         <Box
-          gridColumn="span 4"
+          gridColumn={{ xs: "span 12", sm: "span 6", md: "span 3" }}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           overflow="auto"
@@ -218,7 +221,7 @@ const Dashboard = () => {
 
         {/* ROW 3 */}
         <Box
-          gridColumn="span 4"
+          gridColumn={{ xs: "span 12", sm: "span 6", md: "span 3" }}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           p="30px"
@@ -244,7 +247,7 @@ const Dashboard = () => {
           </Box>
         </Box>
         <Box
-          gridColumn="span 4"
+          gridColumn={{ xs: "span 12", sm: "span 6", md: "span 3" }}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
@@ -255,12 +258,12 @@ const Dashboard = () => {
           >
             Sales Quantity
           </Typography>
-          <Box height="250px" mt="-20px">
+          <Box height={{ xs: "200px", md: "250px" }} m="-20px 0 0 0">
             <BarChart isDashboard={true} />
           </Box>
         </Box>
         <Box
-          gridColumn="span 4"
+          gridColumn={{ xs: "span 12", sm: "span 6", md: "span 3" }}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           padding="30px"
@@ -272,7 +275,7 @@ const Dashboard = () => {
           >
             Geography Based Traffic
           </Typography>
-          <Box height="200px">
+          <Box height={{ xs: "200px", md: "250px" }} m="-20px 0 0 0">
             <GeographyChart isDashboard={true} />
           </Box>
         </Box>

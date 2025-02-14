@@ -81,5 +81,4 @@ const GeographyChart = ({ isDashboard = false }) => {
     />
   );
 };
-
-export default GeographyChart;
+export default GeographyChart

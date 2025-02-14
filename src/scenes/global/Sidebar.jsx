@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
@@ -35,17 +40,27 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({isCollapsed, setIsCollapsed}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+
 
   return (
     <Box
       sx={{
+        position: "fixed", // Keep sidebar fixed on the screen
+        top: 0,
+        left: 0,
+        height: "100vh",
+        width: isCollapsed ? "80px" : "250px", // Make sidebar take full height
+      
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
+        },
+      
+        "& .pro-menu-item": {
+          whiteSpace: "nowrap", // Prevent text wrapping
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
@@ -61,7 +76,7 @@ const Sidebar = () => {
         },
       }}
     >
-      <ProSidebar collapsed={isCollapsed}>
+      <ProSidebar collapsed={isCollapsed} sx={{ height: "100vh" }}>
         <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
           <MenuItem

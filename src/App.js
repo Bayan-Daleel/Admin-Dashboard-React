@@ -16,16 +16,33 @@ import FAQ from './scenes/faq';
 import Geography from './scenes/geography';
 import Calendar from './scenes/calendar';
 import { Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
+import {useMediaQuery} from "@mui/material";
 
 function App() {
   const [theme, colorMode] = useMode();
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const [isCollapsed, setIsCollapsed] = useState(isMobile);
+
+  useEffect(() => {
+    setIsCollapsed(isMobile);
+  }, [isMobile]);
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <Sidebar />
-          <main className="content">
+          <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+          
+          <main className="content"
+          style={{flexGrow: 1, // Allow main content to take available space
+            marginLeft: isCollapsed ? "70px" : "250px", // Adjust based on sidebar width
+            transition: "margin-left 0.3s ease",
+            padding: "20px",
+            width: "100%",
+            marginBottom:"70px !important"}}
+          >
             <Topbar />
             <Routes>
               <Route path="/" element={<Dashboard />} />

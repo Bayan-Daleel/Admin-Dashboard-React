@@ -1,6 +1,6 @@
 import React from "react";
 import { mockDataTeam } from "../../data/mockData";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography ,useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
@@ -11,6 +11,8 @@ import { AdminPanelSettingsOutlined, LockOpenOutlined, SecurityOutlined } from "
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const isMobile = useMediaQuery("(max-width: 768px)"); // ✅ Responsive check
+
   const columns = [
     { field: "id", headerName: "ID" },
     {
@@ -43,9 +45,9 @@ const Team = () => {
       renderCell: ({ row: { access } }) => {
         return (
           <Box
-            width="60%"
-            m="0 auto"
-            p="5px"
+          width={isMobile ? "120%" : "70%"} // ✅ Full width on mobile
+           m="0"
+           p={isMobile ? "3px" : "5px"}
             display="flex"
             justifyContent="center"
             backgroundColor={
@@ -56,11 +58,12 @@ const Team = () => {
                 : colors.greenAccent[700]
             }
             borderRadius="4px"
+            flexWrap="wrap"
           >
             {access === "admin" && <AdminPanelSettingsOutlined />}
             {access === "manager" && <SecurityOutlined />}
             {access === "user" && <LockOpenOutlined />}
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
+            <Typography color={colors.grey[100]} sx={{ ml: "5px" ,fontSize: "12px"  }}>
               {access}
             </Typography>
           </Box>

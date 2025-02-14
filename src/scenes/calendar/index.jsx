@@ -11,6 +11,7 @@ import {
   ListItemText,
   Typography,
   useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
@@ -18,6 +19,7 @@ import { tokens } from "../../theme";
 const Calendar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const isMobile = useMediaQuery("(max-width: 768px)"); // ✅ Responsive check
   const [currentEvents, setCurrentEvents] = useState([]);
 
   const handleDateClick = (selected) => {
@@ -50,10 +52,15 @@ const Calendar = () => {
     <Box m="20px">
       <Header title="Calendar" subtitle="Full Calendar Interactive Page" />
 
-      <Box display="flex" justifyContent="space-between">
+      <Box 
+        display="flex" 
+        flexDirection={isMobile ? "column" : "row"} // ✅ Stack on mobile
+        justifyContent="space-between"
+        gap="15px" // ✅ Space between elements
+      >
         {/* CALENDAR SIDEBAR */}
         <Box
-          flex="1 1 20%"
+          flex={isMobile ? "1 1 100%" : "1 1 20%"} // ✅ Full width on mobile
           backgroundColor={colors.primary[400]}
           p="15px"
           borderRadius="4px"
@@ -87,9 +94,12 @@ const Calendar = () => {
         </Box>
 
         {/* CALENDAR */}
-        <Box flex="1 1 100%" ml="15px">
+        <Box 
+          flex="1 1 100%" // ✅ Full width on mobile
+          minHeight="400px" // ✅ Ensures enough height
+        >
           <FullCalendar
-            height="75vh"
+            height={isMobile ? "60vh" : "75vh"} // ✅ Adjust height for mobile
             plugins={[
               dayGridPlugin,
               timeGridPlugin,
@@ -99,8 +109,8 @@ const Calendar = () => {
             headerToolbar={{
               left: "prev,next today",
               center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
-            }}
+              right: isMobile ? "dayGridMonth" : "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
+            }} // ✅ Fewer buttons on mobile
             initialView="dayGridMonth"
             editable={true}
             selectable={true}
@@ -118,7 +128,7 @@ const Calendar = () => {
               {
                 id: "5123",
                 title: "Timed event",
-                date: "2024-09-28",
+                date: "2025-09-28",
               },
             ]}
           />
